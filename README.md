@@ -21,7 +21,12 @@ DSANDSL provides automatic, configurable, role-based filtering of data objects, 
 
 DSANDSL was born from a practical business need: **preventing affiliate partners from seeing data they shouldn't have access to**. 
 
-The creator's business partner was (rightfully) paranoid that affiliates would see sensitive information, and the development team found themselves constantly contemplating "what consumes what" every time they implemented a new API endpoint.
+**Specific Business Risks:**
+- Partners seeing internal costs/revenue data
+- Partners accessing other partner's confidential information  
+- Data leaks during rapid development iterations due to lack of layered security
+
+The creator's business partner was (rightfully) paranoid about these data exposure risks, and the development team found themselves constantly contemplating "what consumes what" every time they implemented a new API endpoint.
 
 **The DSANDSL Workflow:**
 1. Just implement your API and ask the service layer for whatever data you want
