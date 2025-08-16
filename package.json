@@ -1,0 +1,105 @@
+{
+  "name": "dsandsl",
+  "version": "1.0.0",
+  "description": "Data Service AND Security Layer - Universal role-based data filtering and security for Node.js applications",
+  "main": "index.js",
+  "keywords": [
+    "security",
+    "authorization",
+    "rbac",
+    "role-based-access-control",
+    "data-filtering",
+    "field-filtering",
+    "privacy",
+    "data-protection",
+    "express",
+    "nextjs",
+    "api-security"
+  ],
+  "author": "dsandsl contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/dsandsl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/dsandsl/issues"
+  },
+  "homepage": "https://github.com/yourusername/dsandsl#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint lib/ test/ --ext .js",
+    "lint:fix": "eslint lib/ test/ --ext .js --fix",
+    "build": "echo 'No build step required'",
+    "demo": "node demo/server.js",
+    "docs:serve": "docsify serve docs",
+    "validate": "node scripts/validate-config.js",
+    "benchmark": "node benchmark/run-benchmarks.js"
+  },
+  "dependencies": {
+    "debug": "^4.3.4"
+  },
+  "optionalDependencies": {
+    "pg": "^8.11.0",
+    "mysql2": "^3.6.0",
+    "sqlite3": "^5.1.6"
+  },
+  "peerDependencies": {
+    "next": ">=12.0.0",
+    "express": ">=4.17.0",
+    "next-auth": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "next-auth": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "supertest": "^6.3.3",
+    "docsify-cli": "^4.4.4",
+    "benchmark": "^2.1.4"
+  },
+  "files": [
+    "lib/",
+    "adapters/",
+    "utils/",
+    "index.js",
+    "README.md",
+    "LICENSE",
+    "docs/"
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "adapters/**/*.js",
+      "utils/**/*.js",
+      "index.js"
+    ],
+    "testMatch": [
+      "**/test/**/*.test.js"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "standard",
+    "env": {
+      "node": true,
+      "jest": true
+    }
+  }
+}
