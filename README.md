@@ -220,31 +220,46 @@ const filtered = dsl.filter(data, userRole)
 
 ### Next.js Integration
 ```javascript
-// pages/api/users.js
-import { DSLEngine, NextJSAdapter } from 'dsandsl'
+// pages/api/users/[id].js
+import { DSLEngine, createConfig, NextJSAdapter } from 'dsandsl'
 import { getServerSession } from 'next-auth'
 
-const dsl = new DSLEngine(config)
+const dsl = new DSLEngine(createConfig(config))
 
 export default NextJSAdapter.createHandler(dsl, {
-  roleExtractor: async (req) => {
+  roleExtractor: async (req, res) => {
     const session = await getServerSession(req, res, authOptions)
     return session?.user?.role || 'guest'
-  }
+  },
+  
+  dataProvider: async (req) => {
+    const { id } = req.query
+    return await getUserById(id)
+  },
+  
+  autoFilter: true // Automatically filter response
 })
 ```
 
 ### Express Integration
 ```javascript
 const express = require('express')
-const { DSLEngine, ExpressAdapter } = require('dsandsl')
+const { DSLEngine, createConfig, ExpressAdapter } = require('dsandsl')
 
 const app = express()
-const dsl = new DSLEngine(config)
+const dsl = new DSLEngine(createConfig(config))
 
-app.use('/api/protected', ExpressAdapter.middleware(dsl, {
-  roleExtractor: (req) => req.session?.user?.role
+// Add DSL middleware
+app.use(ExpressAdapter.middleware(dsl, {
+  roleExtractor: (req) => req.user?.role || 'guest',
+  attachTo: 'dsl'
 }))
+
+// Use in routes
+app.get('/api/users/:id', (req, res) => {
+  const userData = getUserById(req.params.id)
+  return req.dsl.json(userData) // Automatically filtered
+})
 ```
 
 ## 🎮 Interactive Demo
@@ -299,6 +314,16 @@ const dsl = new DSLEngine(config, {
   }
 })
 ```
+
+## 🔌 Framework Adapters
+
+DSANDSL provides first-class adapters for popular frameworks:
+
+- **[Express.js](docs/ADAPTERS.md#expressjs-adapter)** - Middleware and route helpers
+- **[Next.js](docs/ADAPTERS.md#nextjs-adapter)** - API route handlers and middleware
+- **Generic** - Use with any Node.js framework
+
+See the [complete adapter documentation](docs/ADAPTERS.md) for detailed examples and configuration options.
 
 ## 📚 API Reference
 

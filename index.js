@@ -7,18 +7,9 @@ const DSLEngine = require('./lib/core/DSLEngine')
 const { createConfig, validateConfig } = require('./lib/core/DSLConfig')
 const { DSLError, ConfigurationError, AccessDeniedError, ValidationError } = require('./lib/core/DSLErrors')
 
-// Framework adapters (will be implemented)
-let NextJSAdapter, ExpressAdapter
-try {
-  NextJSAdapter = require('./lib/adapters/NextJSAdapter')
-} catch (e) {
-  NextJSAdapter = null
-}
-try {
-  ExpressAdapter = require('./lib/adapters/ExpressAdapter')
-} catch (e) {
-  ExpressAdapter = null
-}
+// Framework adapters
+const NextJSAdapter = require('./lib/adapters/NextJSAdapter')
+const ExpressAdapter = require('./lib/adapters/ExpressAdapter')
 
 // Utilities
 const { matchField, extractFields } = require('./lib/utils/FieldMatcher')
