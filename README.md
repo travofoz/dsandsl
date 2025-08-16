@@ -17,6 +17,20 @@ DSANDSL provides automatic, configurable, role-based filtering of data objects, 
 
 **If you want a traditional ORM with manual control, use Prisma, Sequelize, or TypeORM instead.**
 
+## 💡 Real-World Origin Story
+
+DSANDSL was born from a practical business need: **preventing affiliate partners from seeing data they shouldn't have access to**. 
+
+The creator's business partner was (rightfully) paranoid that affiliates would see sensitive information, and the development team found themselves constantly contemplating "what consumes what" every time they implemented a new API endpoint.
+
+**The DSANDSL Workflow:**
+1. Just implement your API and ask the service layer for whatever data you want
+2. The service layer returns only what the user role is allowed to have
+3. If something's missing that should be there, whitelist it in the DSL configuration
+4. Enable debug warnings to quickly see what's being filtered and why
+
+**Result:** You stop worrying about data leaks and focus on building features. The security is automatic and consistent across your entire application.
+
 ## 🚀 Quick Start (Service Provider Pattern - MANDATORY)
 
 **⚠️ WARNING: If you don't use the Service Provider pattern, you're using DSANDSL wrong!**
