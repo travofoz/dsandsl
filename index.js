@@ -11,6 +11,18 @@ const { DSLError, ConfigurationError, AccessDeniedError, ValidationError } = req
 const NextJSAdapter = require('./lib/adapters/NextJSAdapter')
 const ExpressAdapter = require('./lib/adapters/ExpressAdapter')
 
+// Database adapters
+const DatabaseAdapter = require('./lib/database/DatabaseAdapter')
+const PostgreSQLAdapter = require('./lib/database/adapters/PostgreSQLAdapter')
+const MySQLAdapter = require('./lib/database/adapters/MySQLAdapter')
+const SQLiteAdapter = require('./lib/database/adapters/SQLiteAdapter')
+const QueryBuilder = require('./lib/database/QueryBuilder')
+
+// Database managers
+const PostgreSQLManager = require('./lib/database/managers/PostgreSQLManager')
+const MySQLManager = require('./lib/database/managers/MySQLManager')
+const SQLiteManager = require('./lib/database/managers/SQLiteManager')
+
 // Utilities
 const { matchField, extractFields } = require('./lib/utils/FieldMatcher')
 const { compareRoles, hasPermission } = require('./lib/utils/RoleUtils')
@@ -30,6 +42,18 @@ module.exports = {
   // Framework adapters
   NextJSAdapter,
   ExpressAdapter,
+  
+  // Database adapters
+  DatabaseAdapter,
+  PostgreSQLAdapter,
+  MySQLAdapter,
+  SQLiteAdapter,
+  QueryBuilder,
+  
+  // Database managers
+  PostgreSQLManager,
+  MySQLManager,
+  SQLiteManager,
   
   // Utilities
   utils: {

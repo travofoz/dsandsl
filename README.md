@@ -47,7 +47,38 @@ console.log(filtered)
 - **Forgotten Security**: Manual field filtering is easy to forget and inconsistent
 - **Data Leaks**: Accidentally exposing sensitive data in API responses
 - **Complex Authorization**: Role-based access control scattered throughout codebase
+- **SQL Injection**: Field names become attack vectors in poorly written APIs
+- **API Layer Vulnerabilities**: Developers bypass security with careless input handling
 - **Debugging Pain**: No visibility into why data is missing from responses
+
+### Defense-in-Depth Security
+
+DSANDSL provides **data layer security** that protects even when API code is poorly written:
+
+```javascript
+// 🔥 BAD API: No input validation
+app.get('/api/users', (req, res) => {
+  // Developer directly passes user input - DANGEROUS!
+  const fields = req.query.fields?.split(',') || ['*']
+  const users = await db.select(fields).from('users')
+  res.json(users)
+})
+
+// ✅ PROTECTED: DSANDSL prevents SQL injection and unauthorized access
+app.get('/api/users', (req, res) => {
+  // Even with dangerous field names, DSL validates and filters
+  const fields = req.query.fields?.split(',') || ['*'] // Could be malicious!
+  const users = await adapter.select('users', req.user.role, { fields })
+  res.json(users) // Safe - malicious fields blocked, unauthorized fields filtered
+})
+```
+
+**Key Protection Mechanisms:**
+- 🗺️ **FieldMapper** validates all field names before SQL generation
+- 🛡️ **Role-based filtering** enforces permissions at data layer
+- 🔒 **Parameterized queries** prevent SQL injection in values
+- 🏗️ **Table access control** validates operations by role
+- ⚡ **Automatic conversion** between camelCase and snake_case
 - **Performance**: Inefficient manual filtering of large datasets
 
 ### DSANDSL Solution
@@ -277,6 +308,27 @@ The demo shows:
 - Field filtering visualization  
 - Metadata inspection
 - Performance benchmarks
+
+## 🚨 Security Examples
+
+See how DSANDSL protects against poor API practices:
+
+```bash
+# Bad API, Good DSL protection examples
+node examples/bad-api-good-dsl.js
+
+# FieldMapper security demonstration  
+node examples/fieldmapper-protection.js
+
+# SQL injection protection tests
+node test-security.cjs
+```
+
+These examples demonstrate:
+- ✅ Protection against SQL injection in field names
+- ✅ Role-based filtering despite API vulnerabilities 
+- ✅ Defense-in-depth security at the data layer
+- ✅ FieldMapper preventing column name attacks
 
 ## 🔧 Advanced Usage
 
