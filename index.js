@@ -27,6 +27,12 @@ const SQLiteManager = require('./lib/database/managers/SQLiteManager')
 const { matchField, extractFields } = require('./lib/utils/FieldMatcher')
 const { compareRoles, hasPermission } = require('./lib/utils/RoleUtils')
 
+// Services (Recommended Pattern)
+const DSLServiceProvider = require('./lib/services/DSLServiceProvider')
+const ServiceRegistry = require('./lib/services/ServiceRegistry')
+const BaseService = require('./lib/services/BaseService')
+const UserService = require('./lib/services/UserService')
+
 module.exports = {
   // Core classes
   DSLEngine,
@@ -62,6 +68,12 @@ module.exports = {
     compareRoles,
     hasPermission
   },
+  
+  // Services (Recommended Pattern)
+  DSLServiceProvider,
+  ServiceRegistry,
+  BaseService,
+  UserService,
   
   // Convenience exports
   createEngine: (config, options) => new DSLEngine(createConfig(config), options),

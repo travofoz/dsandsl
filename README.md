@@ -4,12 +4,27 @@
 
 DSANDSL provides automatic, configurable, role-based filtering of data objects, arrays, database queries, and API responses. Built for applications that need granular access control without manual security implementation everywhere.
 
-## 🚀 Quick Start
+## ⚠️ CRITICAL: This is NOT a Regular ORM
+
+**DSANDSL is a SECURITY FRAMEWORK that happens to include database capabilities.**
+
+- ✅ Use it if you want **bulletproof security** enforced at the data layer
+- ✅ Use it if you want **zero possibility** of developers bypassing security
+- ✅ Use it if you want **consistent, centralized** data access patterns
+- 🚫 **DO NOT** use it if you want manual control over database queries
+- 🚫 **DO NOT** use it if you want to write raw SQL in API endpoints
+- 🚫 **DO NOT** use it if you think the Service Provider pattern is "overkill"
+
+**If you want a traditional ORM with manual control, use Prisma, Sequelize, or TypeORM instead.**
+
+## 🚀 Quick Start (Service Provider Pattern - MANDATORY)
+
+**⚠️ WARNING: If you don't use the Service Provider pattern, you're using DSANDSL wrong!**
 
 ```javascript
-const { DSLEngine, createConfig } = require('dsandsl')
+const { DSLServiceProvider, BaseService, createConfig } = require('dsandsl')
 
-// Configure your security model
+// 1. Configure your security model
 const config = createConfig({
   roles: {
     admin: { level: 100 },
@@ -18,27 +33,48 @@ const config = createConfig({
   },
   
   fields: {
-    'user.email': { minRole: 'user', category: 'personal' },
-    'user.salary': { minRole: 'admin', category: 'financial' },
-    'user.department': { minRole: 'manager', category: 'organizational' }
+    'users.email': { minRole: 'user' },
+    'users.salary': { minRole: 'admin' },
+    'users.password_hash': { deny: true }
+  },
+  
+  database: {
+    tables: {
+      users: { minRole: 'user', operations: ['SELECT', 'INSERT', 'UPDATE'] }
+    }
   }
 })
 
-const dsl = new DSLEngine(config)
+// 2. Initialize the service provider (once at app startup)
+await DSLServiceProvider.initialize(config, {
+  type: 'postgresql',
+  connection: {
+    host: 'localhost',
+    database: 'myapp',
+    user: 'postgres',
+    password: 'password'
+  }
+})
 
-// Automatic filtering based on user role
-const userData = {
-  name: "John Doe",
-  email: "john@company.com", 
-  salary: 75000,
-  department: "Engineering"
+// 3. Create domain services
+class UserService extends BaseService {
+  static async getUsers(userRole, options = {}) {
+    return this.select('users', userRole, options)
+  }
+  
+  static async createUser(userData, userRole) {
+    return this.insert('users', userData, userRole)
+  }
 }
 
-const filtered = dsl.filter(userData, 'user') // Role: 'user'
-console.log(filtered)
-// Output: { name: "John Doe", email: "john@company.com" }
-// salary and department automatically filtered out
+// 4. Use in your API endpoints (security is automatic)
+app.get('/api/users', async (req, res) => {
+  const users = await UserService.getUsers(req.user.role, req.query)
+  res.json(users) // Automatically filtered by role!
+})
 ```
+
+**🎯 This is a SECURITY FRAMEWORK, not a regular ORM. Use it correctly or use something else.**
 
 ## 🛡️ Why DSANDSL?
 
@@ -309,11 +345,14 @@ The demo shows:
 - Metadata inspection
 - Performance benchmarks
 
-## 🚨 Security Examples
+## 🚨 Critical: Understand How to Use DSANDSL
 
-See how DSANDSL protects against poor API practices:
+**⚠️ IF YOUR CODE DOESN'T LOOK LIKE THE SERVICE PROVIDER PATTERN, YOU'RE DOING IT WRONG!**
 
 ```bash
+# See the RIGHT WAY vs WRONG WAY comparison
+node examples/service-pattern-comparison.js
+
 # Bad API, Good DSL protection examples
 node examples/bad-api-good-dsl.js
 
@@ -324,7 +363,11 @@ node examples/fieldmapper-protection.js
 node test-security.cjs
 ```
 
+**🎯 Key Message: If you want manual control over database queries, use Prisma, Sequelize, or another ORM. DSANDSL is a SECURITY FRAMEWORK that enforces secure patterns.**
+
 These examples demonstrate:
+- 🚫 Why direct DSL usage defeats the purpose
+- ✅ How Service Provider pattern ensures security
 - ✅ Protection against SQL injection in field names
 - ✅ Role-based filtering despite API vulnerabilities 
 - ✅ Defense-in-depth security at the data layer
