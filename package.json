@@ -20,12 +20,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/dsandsl.git"
+    "url": "git+https://github.com/travofoz/dsandsl.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/dsandsl/issues"
+    "url": "https://github.com/travofoz/dsandsl/issues"
   },
-  "homepage": "https://github.com/yourusername/dsandsl#readme",
+  "homepage": "https://github.com/travofoz/dsandsl#readme",
   "engines": {
     "node": ">=14.0.0"
   },
