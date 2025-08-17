@@ -36,27 +36,6 @@ The creator's business partner was (rightfully) paranoid about these data exposu
 
 **Result:** You stop worrying about data leaks and focus on building features. The security is automatic and consistent across your entire application.
 
-## ⛪ The Church of Murphy Engineering Philosophy
-
-DSANDSL was built following the sacred **Church of Murphy** engineering principles:
-
-**Murphy's Law:** *"Anything that can go wrong, will go wrong."*
-
-**The Church of Murphy Tenets:**
-- 🔧 **Measure twice, cut once** - Engineer systematically, not sloppily
-- 🔍 **Investigate until you stop finding problems** - Don't stop at the first bug
-- 🛡️ **Assume developers will make mistakes** - Build systems that prevent errors
-- 🏗️ **Make the wrong way impossible** - Don't rely on developer discipline
-- ⚡ **Fail fast and fail safe** - Catch problems before they become disasters
-
-In the Church of Murphy, we don't fight Murphy's Law - we **embrace it** by building systems where "going wrong" is impossible.
-
-**DSANDSL's Church of Murphy Design:**
-- Can't accidentally expose sensitive data ✅
-- Can't bypass security even if you try ✅  
-- Can't write vulnerable queries ✅
-- Can't forget to implement authorization ✅
-- Can't leak data during rapid development ✅
 
 ## 🚀 Quick Start (Service Provider Pattern - MANDATORY)
 
@@ -521,6 +500,30 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 🙏 Acknowledgments
 
 Built with inspiration from production affiliate tracking systems requiring granular data security and high-performance field filtering.
+
+## ⛪ The Church of Murphy Engineering Philosophy
+
+DSANDSL was built following the sacred **Church of Murphy** engineering principles for the **troubleshooting, development, and testing** phases of software engineering:
+
+**Murphy's Law:** *"Anything that can go wrong, will go wrong."*
+
+**The Church of Murphy Tenets (Development & Testing):**
+- 🔧 **Measure twice, cut once** - Engineer systematically during implementation
+- 🔍 **Investigate until you stop finding problems** - Thorough testing and debugging
+- 🛡️ **Assume developers will make mistakes** - Build defensive systems and safeguards
+- 🏗️ **Make the wrong way difficult** - Design APIs that guide toward correct usage
+- ⚡ **Fail fast and fail safe** - Catch problems early in development and testing
+
+*Note: This philosophy specifically applies to the troubleshooting, implementation, and testing aspects of engineering - not research, planning, or other development phases.*
+
+In the Church of Murphy, we don't fight Murphy's Law during development - we **embrace it** by building systems that make "going wrong" much harder during coding and testing.
+
+**DSANDSL's Church of Murphy Design:**
+- Makes accidentally exposing sensitive data difficult ✅
+- Makes bypassing security require deliberate effort ✅  
+- Makes writing vulnerable queries harder ✅
+- Makes forgetting authorization unlikely ✅
+- Reduces data leak risk during rapid development ✅
 
 ---
 
