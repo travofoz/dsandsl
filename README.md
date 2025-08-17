@@ -507,16 +507,14 @@ DSANDSL was built following the sacred **Church of Murphy** engineering principl
 
 **Murphy's Law:** *"Anything that can go wrong, will go wrong."*
 
-**The Church of Murphy Tenets (Development & Testing):**
+**The Church of Murphy Tenets:**
 - 🔧 **Measure twice, cut once** - Engineer systematically during implementation
 - 🔍 **Investigate until you stop finding problems** - Thorough testing and debugging
 - 🛡️ **Assume developers will make mistakes** - Build defensive systems and safeguards
 - 🏗️ **Make the wrong way difficult** - Design APIs that guide toward correct usage
 - ⚡ **Fail fast and fail safe** - Catch problems early in development and testing
 
-*Note: This philosophy specifically applies to the troubleshooting, implementation, and testing aspects of engineering - not research, planning, or other development phases.*
-
-In the Church of Murphy, we don't fight Murphy's Law during development - we **embrace it** by building systems that make "going wrong" much harder during coding and testing.
+In the Church of Murphy, we don't fight Murphy's Law - we **embrace it** by building systems that make "going wrong" much harder.
 
 **DSANDSL's Church of Murphy Design:**
 - Makes accidentally exposing sensitive data difficult ✅
